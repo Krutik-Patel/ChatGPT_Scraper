@@ -11,12 +11,12 @@ import time
 import os
 
 
-def open():
+def open(driver):
     driver.get("https://chat.openai.com/auth/login")
     time.sleep(10)
 
-def login(emailID, password):
-    open()
+def login(emailID, password, driver):
+    open(driver)
     loginBtn = driver.find_elements(By.CSS_SELECTOR, ".btn.relative.btn-primary")[0]
     loginBtn.click()
     time.sleep(3)
@@ -28,7 +28,7 @@ def login(emailID, password):
     passwd.send_keys(password)
     passwd.send_keys(Keys.RETURN)
 
-def skip_popups():
+def skip_popups(driver):
     time.sleep(3)
     wait = WebDriverWait(driver, 10)
     element = wait.until(EC.visibility_of_all_elements_located((By.CSS_SELECTOR, ".btn.relative.btn-neutral.ml-auto")))
@@ -41,9 +41,9 @@ def skip_popups():
     dnBtn = driver.find_elements(By.CSS_SELECTOR, '.btn.relative.btn-primary.ml-auto')[0]
     dnBtn.click()
     
-def enter_gpt(emailID, password):
-    login(emailID, password)
-    skip_popups()
+def enter_gpt(emailID, password, driver=None):
+    login(emailID, password, driver)
+    skip_popups(driver)
 
 if __name__ == "__main__":
     options = webdriver.ChromeOptions()
