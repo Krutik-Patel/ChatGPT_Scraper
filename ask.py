@@ -42,10 +42,10 @@ def response():
         last_par += 1
         if sz_lst < last_par:
             time.sleep(2)
+            sz_lst = len(driver.find_elements(By.XPATH, "(//div[@class='flex flex-grow flex-col gap-3'])[last()]//p"))
             
-
-
     print("[End of Response]\n")
+
 
 def cycle():
     while True:
