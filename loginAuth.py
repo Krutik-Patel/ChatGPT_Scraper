@@ -13,13 +13,13 @@ import os
 
 def open(driver):
     driver.get("https://chat.openai.com/auth/login")
-    time.sleep(10)
 
 def login(emailID, password, driver):
     open(driver)
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".btn.relative.btn-primary")))
     loginBtn = driver.find_elements(By.CSS_SELECTOR, ".btn.relative.btn-primary")[0]
     loginBtn.click()
-    time.sleep(3)
+    # time.sleep(3)
     userNm = driver.find_element(By.ID, 'username')
     userNm.send_keys(emailID)
     userNm.send_keys(Keys.RETURN)

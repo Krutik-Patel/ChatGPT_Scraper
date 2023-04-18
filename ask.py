@@ -22,21 +22,28 @@ def textArea():
     return numP
 
 def response(numP):
-    time.sleep(4)
-    # ele = driver.find_elements(By.CSS_SELECTOR, "")
-    # element = WebDriverWait(driver, 10).until(EC.staleness_of(ele))
+    time.sleep(2)
     print("\nResponse from GPT:\n")
-    lent = numP + 1
-    txP = len(driver.find_elements(By.TAG_NAME, 'p'))
-    while txP >= lent:
-        ele = driver.find_elements(By.CSS_SELECTOR, ".text-base.gap-4.p-4.flex.m-auto p")
-        WebDriverWait(driver, 10).until(EC.staleness_of(ele))
+    last_par = 1
+    lastP = driver.find_element(By.XPATH, f"((//div[@class='flex flex-grow flex-col gap-3'])[last()]//p)[{last_par}]")
+    sz_lst = len(driver.find_elements(By.XPATH, "(//div[@class='flex flex-grow flex-col gap-3'])[last()]//p"))
+    # print(sz_lst)
+    while last_par <= sz_lst:
+        lent = -1
+        curr = len(lastP.text)
+        while lent < curr:
+            lent = curr
+            time.sleep(1)
+            lastP = driver.find_element(By.XPATH, f"((//div[@class='flex flex-grow flex-col gap-3'])[last()]//p)[{last_par}]")
+            curr = len(lastP.text)
+        print(lastP.text)
+        print("\n")
+        time.sleep(3)
+        sz_lst = len(driver.find_elements(By.XPATH, "(//div[@class='flex flex-grow flex-col gap-3'])[last()]//p"))
+        last_par += 1
 
-    fnEl = driver.find_elements(By.CSS_SELECTOR, ".text-base.gap-4.p-4.flex.m-auto")[-1]
-    fnEl = fnEl.find_elements(By.TAG_NAME, 'p')
-    for pTxt in fnEl:
-        print(pTxt.text)
-    print("\n")
+
+    print("\nEnd of Response===================")
 
 def cycle():
     while True:
