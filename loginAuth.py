@@ -20,18 +20,20 @@ def login(emailID, password, driver):
     loginBtn = driver.find_elements(By.CSS_SELECTOR, ".btn.relative.btn-primary")[0]
     loginBtn.click()
     # time.sleep(3)
+    WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.ID, 'username')))
     userNm = driver.find_element(By.ID, 'username')
     userNm.send_keys(emailID)
     userNm.send_keys(Keys.RETURN)
-    time.sleep(2)
+    # time.sleep(2)
+    WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.ID, 'password')))
     passwd = driver.find_element(By.ID, 'password')
     passwd.send_keys(password)
     passwd.send_keys(Keys.RETURN)
 
 def skip_popups(driver):
-    time.sleep(3)
-    wait = WebDriverWait(driver, 10)
-    element = wait.until(EC.visibility_of_all_elements_located((By.CSS_SELECTOR, ".btn.relative.btn-neutral.ml-auto")))
+    # time.sleep(3)
+    WebDriverWait(driver, 10)
+    element = WebDriverWait(driver, 10).until(EC.visibility_of_all_elements_located((By.CSS_SELECTOR, ".btn.relative.btn-neutral.ml-auto")))
     nxtBtn = driver.find_elements(By.CSS_SELECTOR, '.btn.relative.btn-neutral.ml-auto')[0]
     nxtBtn.click()
     element = wait.until(EC.visibility_of_all_elements_located((By.CSS_SELECTOR, ".btn.relative.btn-neutral.ml-auto")))

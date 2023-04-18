@@ -19,11 +19,10 @@ def textArea():
     txtArea.send_keys(st)
     txtArea.send_keys(Keys.RETURN)
     numP = len(driver.find_elements(By.TAG_NAME, 'p'))
-    return numP
 
-def response(numP):
-    time.sleep(2)
+def response():
     print("\nResponse from GPT:\n")
+    time.sleep(2)
     last_par = 1
     lastP = driver.find_element(By.XPATH, f"((//div[@class='flex flex-grow flex-col gap-3'])[last()]//p)[{last_par}]")
     sz_lst = len(driver.find_elements(By.XPATH, "(//div[@class='flex flex-grow flex-col gap-3'])[last()]//p"))
@@ -47,8 +46,8 @@ def response(numP):
 
 def cycle():
     while True:
-        numP = textArea()
-        response(numP)
+        textArea()
+        response()
 
 if __name__ == "__main__":
     options = webdriver.ChromeOptions()
